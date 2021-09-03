@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ứng dụng quản lý sản phầm sử dụng hàm:</title>
+    <style>
+        button {
+            background-color: green;
+            color: aliceblue;
+        }
+
+        tr:nth-child(odd) {
+            background-color: darkgray;
+        }
+
+        #de {
+            background-color: white;
+        }
+
+        #total {
+            color: crimson;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<h2>Add New Product:</h2>
+<table width="100%">
+    <tr>
+        <td colspan="2" width="40%"><input type="text" id="inp" placeholder="New Product">
+            <button onclick="addNew()">Add</button>
+        </td>
+        <td>
+            <input type="hidden">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3"><h2>Display All Product</h2></td>
+    </tr>
+    <tr id="de">
+        <td colspan="2">Product Name</td>
+        <td colspan="1" id="total">0 product</td>
+    </tr>
+</table>
+<div id="out">
+
+</div>
+<script>
+    let array = [];
+    let total = 0;
+
+    function addNew() {
+        let newProduct = document.getElementById('inp').value;
+        array.push(newProduct);
+        total++;
+        outProduct(array);
+    }
+
+    function outProduct(array) {
+        let out = '<table id="tab" width="100%">'
+        for (let i = 0; i < array.length; i++) {
+            out += '<tr>' +
+                '<td>' + array[i] + '</td>' +
+                '<td><button id="' + i + '" onclick="Edit(this.id)"' + '>Edit</button></td>' +
+                '<td><button id="' + i + '" onclick="Delete(this.id)">Delete</button></td>' +
+                '</tr>'
+        }
+        out += '</table>'
+        document.getElementById('inp').value = ''
+        document.getElementById('out').innerHTML = out
+        document.getElementById('total').innerHTML = array.length + ' product'
+    }
+
+    function Edit(x) {
+        array[x] = prompt('')
+        outProduct(array)
+    }
+
+    function Delete(x) {
+        for (x; x < array.length; x++) {
+            array[x] = array[x + 1]
+        }
+        array.pop()
+        outProduct(array)
+    }
+
+</script>
+</body>
+</html>
